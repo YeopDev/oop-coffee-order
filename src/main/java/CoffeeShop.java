@@ -11,7 +11,7 @@ public class CoffeeShop {
         int money = customer.menuOrder(americano); // 소지금에서 메뉴 금액만큼 빠짐.
         System.out.println(" 손님의 지갑사정: "+ money + "원 남았습니다.");
         Cashier cashier = new Cashier(); // 아메리카노 주문.
-        Coffee coffee = cashier.receive(americano); //바리스타에게 주문정보 전달
+        Coffee coffee = cashier.receive(americano); // 바리스타에게 주문정보 전달
         boolean catched = customer.success(coffee);
         if(catched){
             System.out.println("커피를 받았습니다.");

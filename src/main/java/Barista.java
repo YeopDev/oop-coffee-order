@@ -1,9 +1,12 @@
-public class Barista {
+import java.util.function.Predicate;
+
+public class Barista{
 
     // 바리스타의 역할: 커피를 만든다.
     // 바리스타의 책임: 만든 커피를 점원에게 전달한다.
 
-    private String menuName;
+    private final String menuName;
+    private final CreateCoffee createCoffee;
 
     public Barista(String menuName, CreateCoffee createCoffee){
         this.menuName = menuName;

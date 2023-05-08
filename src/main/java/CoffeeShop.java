@@ -1,4 +1,5 @@
-
+import java.util.List;
+import java.util.Scanner;
 
 public class CoffeeShop {
     public static void main(String[] args) {
@@ -8,12 +9,18 @@ public class CoffeeShop {
 
         Customer customer = new Customer(10000); //소지금 1만원
         System.out.println(" 손님이 메뉴를 주문합니다.");
-        int money = customer.menuOrder(americano); // 소지금에서 메뉴 금액만큼 빠짐.
-        System.out.println(" 손님의 지갑사정: "+ money + "원 남았습니다.");
-        Cashier cashier = new Cashier(); // 아메리카노 주문.
-        Coffee coffee = cashier.receive(americano); // 바리스타에게 주문정보 전달
-        boolean catched = customer.success(coffee);
-        if(catched){
+
+        Cashier cashier = new Cashier(List.of(
+                new MenuItem("아메리카노", 1_500),
+                new MenuItem("라떼", 2_000),
+                new MenuItem("바닐라라떼", 3_000)
+        ), new Barista());
+
+        String menuName = sc.next();
+        cashier.buy(customer, menuName);
+
+        System.out.println(" 손님의 소지금: " + customer.getMoney() + "원 남았습니다.");
+        if (customer.hasCoffee()) {
             System.out.println("커피를 받았습니다.");
         }
 

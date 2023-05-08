@@ -16,9 +16,57 @@ class BaristaTest {
     // 행위 ( 도메인 ) : 설명
     // eg ) feature ( coffee) : 생성 유효성 검사 추가
 
-
     // 생성은 이미 유효성 검사가 되었으니 assertions는 불필요
     @ParameterizedTest
+    @ValueSource(
+            strings = {""}
+    )
+    @DisplayName("바리스타가 메뉴를 올바르게 입력받은 경우")
+    void baristaConstructorNoThrownBy(){
+        new Barista();
+    }
+
+    // 유효성 검사가 실패되는 경우 테스트
+    @ParameterizedTest
+    @CsvSource({
+            "menuName, 아메리카노"
+    })
+    @DisplayName("바리스타가 메뉴를 올바르게 입력받지 못한 경우")
+    void baristaConstructorThrownBy(){
+             new Barista();
+    }
+
+    //메서드 검사
+    @ParameterizedTest
+    @ValueSource(
+            strings = {"menuName"}
+    )
+    @DisplayName("바리스타가 커피를 만든다는 메서드가 올바르게 실행됐을 경우")
+    void baristaMethodThrownBy(String menuName){
+        Assertions.assertThatThrownBy(
+                () -> {
+                    Coffee coffee = new Barista().executeCoffee(menuName);
+                }
+        ).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+            "menuName, 아메리카노"
+    )
+    @DisplayName("바리스타가 커피를 만든다는 메서드가 올바르게 실행되지 않았을 경우")
+    void baristaMehodNoThrownBy(String menuName){
+        Assertions.assertThatThrownBy(
+                () -> {
+                    Coffee coffee = new Barista().executeCoffee(menuName);
+                    Assertions.assertThat(coffee.getMenuName()).isEqualTo(menuName);
+                }
+        ).isInstanceOf(IllegalArgumentException.class);
+    }
+
+
+
+   /* @ParameterizedTest
     @ValueSource(
             strings = {"menuName","createCoffee"}
     )
@@ -70,7 +118,7 @@ class BaristaTest {
                     Assertions.assertThat(coffee.getMenuName()).isEqualTo(menuName);
                 }
         ).isInstanceOf(IllegalArgumentException.class);
-    }
+    }*/
 
     // 유효성 검사는 생성자에 있으니까 따로안해도댐
     // 에러나면 터진거 안나면 정상인가

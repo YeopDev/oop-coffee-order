@@ -1,8 +1,6 @@
 import static java.util.Objects.isNull;
 
 public class Customer {
-
-//    고객의 역할 : 주문을 할 수 있다.
     private int money;
     private Coffee coffee;
 
@@ -25,5 +23,9 @@ public class Customer {
     //커피를 받았다.
     public void deliver(Coffee coffee){
         this.coffee = coffee;
+    }
+
+    public boolean hasCoffee() {
+        return !isNull(coffee);
     }
 }

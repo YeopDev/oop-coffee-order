@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.util.List;
 
 public class Cashier {
     // 점원의 역할 : 주문을 받음
